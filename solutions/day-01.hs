@@ -28,9 +28,24 @@ parser input = map turnToInt $ lines input
 solve1 :: Input -> Solution
 solve1 turns = length $ filter (== 0) $ scanl (\acc x -> (acc + x) `mod` 100) 50 turns
 
+step :: (Int, Int) -> Int -> (Int, Int)
+step (count, pos) turn = (count + zeros, nextPos)
+  where
+    nextPos = (pos + turn) `mod` 100
+    zeros =
+      sum
+        [ abs (pos + turn) `quot` 100
+        , if pos > 0 && pos + turn < 0
+            then 1
+            else 0
+        , if pos + turn == 0
+            then 1
+            else 0
+        ]
+
 -- | The function which calculates the solution for part two
 solve2 :: Input -> Solution
-solve2 = error "Part 2 Not implemented"
+solve2 input = fst $ foldl step (0, 50) input
 
 main :: IO ()
 main = do
@@ -41,8 +56,8 @@ main = do
   input <- parser <$> readFile filepath -- use parser <$> readFile filepath if String is better
   if read @Int part == 1
     then do
-      putStrLn "solution to problem 1 is:"
+      putStr "problem 1: "
       print $ solve1 input
     else do
-      putStrLn "solution to problem 2 is:"
+      putStr "problem 2: "
       print $ solve2 input
