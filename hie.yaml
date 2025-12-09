@@ -3,29 +3,29 @@ cradle:
     - path: "./solutions/day-01.hs"
       component: "advent-of-code:exe:day-01"
 
-    - path: "./solutions/day-2.hs"
-      component: "advent-of-code:exe:day-2"
+    - path: "./solutions/day-02.hs"
+      component: "advent-of-code:exe:day-02"
 
-    - path: "./solutions/day-3.hs"
-      component: "advent-of-code:exe:day-3"
+    - path: "./solutions/day-03.hs"
+      component: "advent-of-code:exe:day-03"
 
-    - path: "./solutions/day-4.hs"
-      component: "advent-of-code:exe:day-4"
+    - path: "./solutions/day-04.hs"
+      component: "advent-of-code:exe:day-04"
 
-    - path: "./solutions/day-5.hs"
+    - path: "./solutions/day-05.hs"
       component: "advent-of-code:exe:day-5"
 
-    - path: "./solutions/day-6.hs"
-      component: "advent-of-code:exe:day-6"
+    - path: "./solutions/day-06.hs"
+      component: "advent-of-code:exe:day-06"
 
-    - path: "./solutions/day-7.hs"
-      component: "advent-of-code:exe:day-7"
+    - path: "./solutions/day-07.hs"
+      component: "advent-of-code:exe:day-07"
 
-    - path: "./solutions/day-8.hs"
-      component: "advent-of-code:exe:day-8"
+    - path: "./solutions/day-08.hs"
+      component: "advent-of-code:exe:day-08"
 
-    - path: "./solutions/day-9.hs"
-      component: "advent-of-code:exe:day-9"
+    - path: "./solutions/day-09.hs"
+      component: "advent-of-code:exe:day-09"
 
     - path: "./solutions/day-10.hs"
       component: "advent-of-code:exe:day-10"
@@ -35,42 +35,3 @@ cradle:
 
     - path: "./solutions/day-12.hs"
       component: "advent-of-code:exe:day-12"
-
-    - path: "./solutions/day-13.hs"
-      component: "advent-of-code:exe:day-13"
-
-    - path: "./solutions/day-14.hs"
-      component: "advent-of-code:exe:day-14"
-
-    - path: "./solutions/day-15.hs"
-      component: "advent-of-code:exe:day-15"
-
-    - path: "./solutions/day-16.hs"
-      component: "advent-of-code:exe:day-16"
-
-    - path: "./solutions/day-17.hs"
-      component: "advent-of-code:exe:day-17"
-
-    - path: "./solutions/day-18.hs"
-      component: "advent-of-code:exe:day-18"
-
-    - path: "./solutions/day-19.hs"
-      component: "advent-of-code:exe:day-19"
-
-    - path: "./solutions/day-20.hs"
-      component: "advent-of-code:exe:day-20"
-
-    - path: "./solutions/day-21.hs"
-      component: "advent-of-code:exe:day-21"
-
-    - path: "./solutions/day-22.hs"
-      component: "advent-of-code:exe:day-22"
-
-    - path: "./solutions/day-23.hs"
-      component: "advent-of-code:exe:day-23"
-
-    - path: "./solutions/day-24.hs"
-      component: "advent-of-code:exe:day-24"
-
-    - path: "./solutions/day-25.hs"
-      component: "advent-of-code:exe:day-25"
