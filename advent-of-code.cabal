@@ -49,3 +49,9 @@ executable day-01
       solutions
   main-is: day-01.hs
 
+executable day-02
+  import: deps
+  hs-source-dirs:
+      solutions
+  main-is: day-02.hs
+
