@@ -6,7 +6,7 @@ AOC_BASE_URL="https://adventofcode.com/$YEAR/"
 # Function to create a new Advent of Code solution for a given day
 create_new_solution() {
   echo "Creating a new Advent of Code template for day $number."
-  local number="$1"
+  local number="$(printf '%02d' $1)"
   local d="day-$number"
 
   if [ -f "./.env" ]; then
@@ -27,15 +27,15 @@ import Data.ByteString qualified as B
 
 {- Types for your input and your solution
 
-- Input    should as the type of your input parameter. AOC, typically uses arrays, matrices or complex data structures. 
+- Input    should as the type of your input parameter. AOC, typically uses arrays, matrices or complex data structures.
 - Solution should be the type of your solution. Typically is an Int, but It can be other things, like a list of numbers
          or a list of characters
 -}
 type Input    = B.ByteString  -- default to Bytestring, but very likely you'll need to change it
 type Solution = Int
 
--- | parser transforms a raw bytestring (from your ./input/day-X.input) to your Input type. 
---   this is intended to use attoparsec for such a transformation. You can use Prelude's 
+-- | parser transforms a raw bytestring (from your ./input/day-X.input) to your Input type.
+--   this is intended to use attoparsec for such a transformation. You can use Prelude's
 --   String if it fit better for the problem
 parser :: B.ByteString -> Input
 parser = undefined
@@ -109,7 +109,7 @@ run_solution() {
   fi
 
   # Check if the number is a positive integer
-  if ! [[ "$number" =~ ^([1-9]|1\d|2[0-5])$ ]]; then
+  if ! [[ "$number" =~ ^(0[1-9]|1[0-2])$ ]]; then
     echo "Invalid day: $number. It should be between 1 and 25"
     exit 1
   fi
@@ -133,7 +133,7 @@ fi
 while getopts ":d:-:f:ei:p:" opt; do
   case $opt in
     d)
-      number="$OPTARG"
+      number="$(printf '%02d' $OPTARG)"
       ;;
     f)
       run_command=f
@@ -230,7 +230,7 @@ Options:
 
 Subcommand: run
 
-Run an Advent of Code solution for the specified day and part. The input data is read from a file which can be supplied via -f or you can 
+Run an Advent of Code solution for the specified day and part. The input data is read from a file which can be supplied via -f or you can
 use shortcuts --example and --input. Default --input
 
 Usage: aoc-hs run -d <day> -p <part> [-f <file-name> | --example | -e | --input | -i]

@@ -43,3 +43,9 @@ common deps
   default-language: Haskell2010
 
 -- Do not touch after this line. aoc-hs will edit it
+executable day-01
+  import: deps
+  hs-source-dirs:
+      solutions
+  main-is: day-01.hs
+
