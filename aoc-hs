@@ -1,7 +1,7 @@
 #!/bin/bash
 
-YEAR=2023
-AOC_BASE_URL="https://adventofcode.com/$YEAR/"
+YEAR=2025
+AOC_BASE_URL="https://adventofcode.com/${YEAR}"
 
 # Function to create a new Advent of Code solution for a given day
 create_new_solution() {
@@ -79,7 +79,7 @@ main = do
       read -r AOC_SESSION
     fi
 
-    curl -o "./inputs/$d.input" -b "session=${AOC_SESSION}" "$AOC_BASE_URL"day/"$number"/input
+    curl -o "./inputs/$d.input" --cookie "session=${AOC_SESSION}" -A "curl-aoc" "${AOC_BASE_URL}/day/${number}/input"
   else
     touch "./inputs/$d.input"
   fi
@@ -212,6 +212,7 @@ elif [ "$subcommand" == "run" ]; then
 
 else
   echo "Usage: aoc-hs [new -d <day> [--no-curl] | run -d <day> -p <part> [-f <file-name> | --example | -e | --input | -i]]
+
 
 Description:
   This tool simplifies Advent of Code solutions in Haskell by creating templates and handling input files. No need to learn Cabal!
