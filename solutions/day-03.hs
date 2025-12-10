@@ -25,22 +25,22 @@ solve1 = sum . map findJoltage
 
 findJoltage :: [Int] -> Int
 findJoltage input =
-  let (d1, xs) = findMaxAndIndex input True
-      (d2, _) = findMaxAndIndex xs False
+  let (d1, xs) = findMax input True
+      (d2, _) = findMax xs False
    in d1 * 10 + d2
 
-findMaxAndIndex :: [Int] -> Bool -> (Int, [Int])
-findMaxAndIndex [] _skipLast = error "findMaxAndIndex can't handle empty list"
-findMaxAndIndex xs skipLast = findMaxAndIndex' nums (head xs) nums skipLast
+findMax :: [Int] -> Bool -> (Int, [Int])
+findMax [] _skipLast = error "findMaxAndIndex can't handle empty list"
+findMax xs skipLast = findMax' nums (head xs) nums skipLast
   where
     nums = tail xs
 
-findMaxAndIndex' :: [Int] -> Int -> [Int] -> Bool -> (Int, [Int])
-findMaxAndIndex' [_x] m xsMax True = (m, xsMax)
-findMaxAndIndex' [] m _xsMax _skipLast = (m, [])
-findMaxAndIndex' (x:xs) m xsMax skipLast
-  | x > m = findMaxAndIndex' xs x xs skipLast
-  | otherwise = findMaxAndIndex' xs m xsMax skipLast
+findMax' :: [Int] -> Int -> [Int] -> Bool -> (Int, [Int])
+findMax' [_x] m xsMax True = (m, xsMax)
+findMax' [] m _xsMax _skipLast = (m, [])
+findMax' (x:xs) m xsMax skipLast
+  | x > m = findMax' xs x xs skipLast
+  | otherwise = findMax' xs m xsMax skipLast
 
 -- | The function which calculates the solution for part two
 solve2 :: Input -> Solution
