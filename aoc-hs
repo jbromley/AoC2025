@@ -57,10 +57,10 @@ main = do
   input <- parser <$> B.readFile filepath -- use parser <$> readFile filepath if String is better
   if read @Int part == 1
     then do
-      putStrLn \"solution to problem 1 is:\"
+      putStr \"Day ${number##+(0)} part 1: \"
       print $ solve1 input
     else do
-      putStrLn \"solution to problem 2 is:\"
+      putStr \"Day ${number##+(0)} part 2: \"
       print $ solve2 input
 "
   echo Creating files...
@@ -79,7 +79,7 @@ main = do
       read -r AOC_SESSION
     fi
 
-    curl -o "./inputs/$d.input" --cookie "session=${AOC_SESSION}" -A "curl-aoc" "${AOC_BASE_URL}/day/${number}/input"
+    curl -o "./inputs/$d.input" --cookie "session=${AOC_SESSION}" -A "curl-aoc" "${AOC_BASE_URL}/day/${number##+(0)}/input"
   else
     touch "./inputs/$d.input"
   fi
