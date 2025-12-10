@@ -56,8 +56,8 @@ main = do
   input <- parser <$> readFile filepath -- use parser <$> readFile filepath if String is better
   if read @Int part == 1
     then do
-      putStr "problem 1: "
+      putStr "Day 1 part 1: "
       print $ solve1 input
     else do
-      putStr "problem 2: "
+      putStr "Day 1 part 2: "
       print $ solve2 input

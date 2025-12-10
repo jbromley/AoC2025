@@ -120,7 +120,6 @@ run_solution() {
     exit 1
   fi
 
-  echo "Running solution for a new Advent of Code template for day $number, Part $part"
   cabal run "$d" -- "$part" "$file_name"
 }
 

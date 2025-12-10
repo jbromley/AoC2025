@@ -70,8 +70,8 @@ main = do
   input <- parser <$> readFile filepath
   if read @Int part == 1
     then do
-      putStrLn "solution to problem 1 is:"
+      putStr "Day 2 part 1: "
       print $ solve1 input
     else do
-      putStrLn "solution to problem 2 is:"
+      putStr "Day 2 part 2: "
       print $ solve2 input
