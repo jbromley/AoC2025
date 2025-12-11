@@ -5,9 +5,10 @@ AOC_BASE_URL="https://adventofcode.com/${YEAR}"
 
 # Function to create a new Advent of Code solution for a given day
 create_new_solution() {
+  local number="$1"
+  local d="day-$(printf '%02d' ${number})"
+
   echo "Creating a new Advent of Code template for day $number."
-  local number="$(printf '%02d' $1)"
-  local d="day-$number"
 
   if [ -f "./.env" ]; then
     echo "found .env file..."
@@ -57,10 +58,10 @@ main = do
   input <- parser <$> B.readFile filepath -- use parser <$> readFile filepath if String is better
   if read @Int part == 1
     then do
-      putStr \"Day ${number##+(0)} part 1: \"
+      putStr \"Day ${number} part 1: \"
       print $ solve1 input
     else do
-      putStr \"Day ${number##+(0)} part 2: \"
+      putStr \"Day ${number} part 2: \"
       print $ solve2 input
 "
   echo Creating files...
@@ -79,7 +80,7 @@ main = do
       read -r AOC_SESSION
     fi
 
-    curl -o "./inputs/$d.input" --cookie "session=${AOC_SESSION}" -A "curl-aoc" "${AOC_BASE_URL}/day/${number##+(0)}/input"
+    curl -o "./inputs/$d.input" --cookie "session=${AOC_SESSION}" -A "curl-aoc" ${AOC_BASE_URL}/day/${number}/input
   else
     touch "./inputs/$d.input"
   fi
@@ -132,7 +133,7 @@ fi
 while getopts ":d:-:f:ei:p:" opt; do
   case $opt in
     d)
-      number="$(printf '%02d' $OPTARG)"
+      number="$OPTARG"
       ;;
     f)
       run_command=f
