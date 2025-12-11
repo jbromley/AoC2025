@@ -67,3 +67,8 @@ executable day-04
       solutions
   main-is: day-04.hs
 
+executable day-05
+  import: deps
+  hs-source-dirs:
+      solutions
+  main-is: day-05.hs
