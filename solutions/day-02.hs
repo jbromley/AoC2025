@@ -17,7 +17,7 @@ type Solution = Int
 --   this is intended to use attoparsec for such a transformation. You can use Prelude's
 --   String if it fit better for the problem
 parser :: String -> Input
-parser input = map strRangeToPair $ T.splitOn "," $ T.pack input
+parser = map strRangeToPair . T.splitOn "," . T.pack
 
 toInt :: T.Text -> Int
 toInt = read . T.unpack
