@@ -13,7 +13,7 @@ cradle:
       component: "advent-of-code:exe:day-04"
 
     - path: "./solutions/day-05.hs"
-      component: "advent-of-code:exe:day-5"
+      component: "advent-of-code:exe:day-05"
 
     - path: "./solutions/day-06.hs"
       component: "advent-of-code:exe:day-06"
