@@ -1,7 +1,7 @@
 module Main where
 
 import Data.Char (digitToInt)
-import Data.List (foldl')
+-- import Data.List (foldl')
 import System.Environment (getArgs)
 
 {- Types for your input and your solution
