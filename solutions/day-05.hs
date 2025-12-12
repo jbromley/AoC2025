@@ -1,7 +1,8 @@
 module Main where
 
+import Data.IntSet (IntSet)
+import Data.Text (Text, breakOn, pack, splitOn, unpack)
 import System.Environment (getArgs)
-import Data.ByteString qualified as B
 
 {- Types for your input and your solution
 
@@ -9,14 +10,25 @@ import Data.ByteString qualified as B
 - Solution should be the type of your solution. Typically is an Int, but It can be other things, like a list of numbers
          or a list of characters
 -}
-type Input    = B.ByteString  -- default to Bytestring, but very likely you'll need to change it
+type Input = (IntSet, [Int])
+
 type Solution = Int
 
 -- | parser transforms a raw bytestring (from your ./input/day-X.input) to your Input type.
 --   this is intended to use attoparsec for such a transformation. You can use Prelude's
 --   String if it fit better for the problem
-parser :: B.ByteString -> Input
-parser = undefined
+parser :: String -> Input
+parser input =
+  let (goodStr, ingredientsStr) = breakOn "\n\n" $ pack input
+      goodList = parseGoodList goodStr
+      ingredients = parseIngredients ingredientsStr
+   in (goodList, ingredients)
+
+parseGoodList :: Text -> IntSet
+parseGoodList = undefined
+
+parseIngredients :: Text -> [Int]
+parseIngredients = undefined
 
 -- | The function which calculates the solution for part one
 solve1 :: Input -> Solution
@@ -28,11 +40,8 @@ solve2 = error "Part 2 Not implemented"
 
 main :: IO ()
 main = do
-  -- run this with cabal run -- day-x <part-number> <file-to-solution>
-  -- example: cabal run -- day-3 2 "./input/day-3.example"
-  -- will run part two of day three with input file ./input/day-3.example
   [part, filepath] <- getArgs
-  input <- parser <$> B.readFile filepath -- use parser <$> readFile filepath if String is better
+  input <- parser <$> readFile filepath
   if read @Int part == 1
     then do
       putStr "Day 5 part 1: "
@@ -40,4 +49,3 @@ main = do
     else do
       putStr "Day 5 part 2: "
       print $ solve2 input
-
