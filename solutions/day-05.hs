@@ -1,7 +1,11 @@
 module Main where
 
-import Data.IntSet (IntSet)
-import Data.Text (Text, breakOn, pack, splitOn, unpack)
+import AdventUtils (textRangeToPair, textToInt)
+-- import Data.Foldable (foldl')
+-- import Data.List (sortOn)
+import Data.Text (Text, breakOn, pack, splitOn, strip)
+import qualified Data.Vector as V
+import RangeList
 import System.Environment (getArgs)
 
 {- Types for your input and your solution
@@ -10,7 +14,7 @@ import System.Environment (getArgs)
 - Solution should be the type of your solution. Typically is an Int, but It can be other things, like a list of numbers
          or a list of characters
 -}
-type Input = (IntSet, [Int])
+type Input = (RangeList, [Int])
 
 type Solution = Int
 
@@ -19,24 +23,24 @@ type Solution = Int
 --   String if it fit better for the problem
 parser :: String -> Input
 parser input =
-  let (goodStr, ingredientsStr) = breakOn "\n\n" $ pack input
-      goodList = parseGoodList goodStr
+  let (freshStr, ingredientsStr) = breakOn "\n\n" $ pack input
+      freshList = parseFreshList freshStr
       ingredients = parseIngredients ingredientsStr
-   in (goodList, ingredients)
+   in (freshList, ingredients)
 
-parseGoodList :: Text -> IntSet
-parseGoodList = undefined
+parseFreshList :: Text -> RangeList
+parseFreshList = normalize . map textRangeToPair . splitOn "\n"
 
 parseIngredients :: Text -> [Int]
-parseIngredients = undefined
+parseIngredients = map textToInt . splitOn "\n" . strip
 
 -- | The function which calculates the solution for part one
 solve1 :: Input -> Solution
-solve1 = error "Part 1 Not implemented"
+solve1 (fresh, ingredients) = length $ filter id $ map (\x -> member x fresh) ingredients
 
 -- | The function which calculates the solution for part two
-solve2 :: Input -> Solution
-solve2 = error "Part 2 Not implemented"
+solve2 :: RangeList -> Solution
+solve2 = V.foldl' (\acc (x, y) -> acc + y - x + 1) 0
 
 main :: IO ()
 main = do
@@ -48,4 +52,4 @@ main = do
       print $ solve1 input
     else do
       putStr "Day 5 part 2: "
-      print $ solve2 input
+      print $ solve2 (fst input)

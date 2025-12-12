@@ -61,6 +61,7 @@ executable day-03
   hs-source-dirs:
       solutions
   main-is: day-03.hs
+
 executable day-04
   import: deps
   hs-source-dirs:
@@ -72,3 +73,6 @@ executable day-05
   hs-source-dirs:
       solutions
   main-is: day-05.hs
+  other-modules:
+    AdventUtils
+    , RangeList

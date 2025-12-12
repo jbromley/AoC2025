@@ -1,4 +1,6 @@
 cradle:
+  direct:
+    arguments: ["-isolutions"]
   cabal:
     - path: "./solutions/day-01.hs"
       component: "advent-of-code:exe:day-01"
