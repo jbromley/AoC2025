@@ -3,8 +3,8 @@ module Main where
 import AdventUtils (textToInt)
 import Data.Text (Text)
 import qualified Data.Text as T
-import Text.Printf (printf)
 import System.Environment (getArgs)
+import Text.Printf (printf)
 
 {- Types for your input and your solution
 
@@ -12,7 +12,8 @@ import System.Environment (getArgs)
 - Solution should be the type of your solution. Typically is an Int, but It can be other things, like a list of numbers
          or a list of characters
 -}
-type Input    = ([([Int] -> Int)], [[Int]])
+type Input = ([([Int] -> Int)], [[Int]])
+
 type Solution = Int
 
 -- | parser transforms a raw bytestring (from your ./input/day-X.input) to your Input type.
@@ -21,21 +22,29 @@ type Solution = Int
 parser :: String -> Input
 parser s =
   let ls = reverse $ map T.words $ T.lines $ T.strip $ T.pack s
-      ops = map opToFn (head ls)
-      nums = transpose $ map (map textToInt) (tail ls)
-  in (ops, nums)
+   in case ls of
+        (opList:rest) ->
+          let ops = map opToFn opList
+              nums = transpose $ map (map textToInt) rest
+           in (ops, nums)
+        [] -> error "input does not contain valid lines for parser"
 
 opToFn :: Text -> ([Int] -> Int)
 opToFn opText
   | op == "+" = sum
   | op == "*" = product
   | otherwise = error (printf "opToFn invalid operator '%s'" op)
-  where op = T.unpack opText
+  where
+    op = T.unpack opText
 
 transpose :: [[a]] -> [[a]]
 transpose [] = []
-transpose ([] : xs) = transpose xs
-transpose xss = map head xss : transpose (map tail xss)
+transpose xss
+  | any null xss = []
+  | otherwise =
+    let heads = [h | (h:_) <- xss] -- Collect heads of non-empty lists
+        tails = [t | (_:t) <- xss] -- Collect tails of non-empty lists
+     in heads : transpose tails
 
 -- | The function which calculates the solution for part one
 solve1 :: Input -> Solution
@@ -56,4 +65,3 @@ main = do
     else do
       putStr "Day 6 part 2: "
       print $ solve2 input
-
