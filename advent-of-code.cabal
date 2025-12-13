@@ -76,3 +76,10 @@ executable day-05
   other-modules:
     AdventUtils
     , RangeList
+
+executable day-06
+  import: deps
+  hs-source-dirs:
+      solutions
+  main-is: day-06.hs
+
