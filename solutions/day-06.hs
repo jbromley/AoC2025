@@ -1,10 +1,10 @@
 module Main where
 
-import System.Environment (getArgs)
-import Data.Matrix (Matrix, fromLists, transpose)
+import AdventUtils (textToInt)
 import Data.Text (Text)
 import qualified Data.Text as T
 import Text.Printf (printf)
+import System.Environment (getArgs)
 
 {- Types for your input and your solution
 
@@ -12,43 +12,48 @@ import Text.Printf (printf)
 - Solution should be the type of your solution. Typically is an Int, but It can be other things, like a list of numbers
          or a list of characters
 -}
-type Input    = String
+type Input    = ([([Int] -> Int)], [[Int]])
 type Solution = Int
 
 -- | parser transforms a raw bytestring (from your ./input/day-X.input) to your Input type.
 --   this is intended to use attoparsec for such a transformation. You can use Prelude's
 --   String if it fit better for the problem
-parser :: String -> [[String]] -- Input
-parser input =
-  let ls = reverse $ map T.words $ T.lines $ T.strip input
-      opList = (head ls)
-      numList = (tail ls)
-  in (map opToFn opList,
+parser :: String -> Input
+parser s =
+  let ls = reverse $ map T.words $ T.lines $ T.strip $ T.pack s
+      ops = map opToFn (head ls)
+      nums = transpose $ map (map textToInt) (tail ls)
+  in (ops, nums)
 
 opToFn :: Text -> ([Int] -> Int)
 opToFn opText
   | op == "+" = sum
   | op == "*" = product
   | otherwise = error (printf "opToFn invalid operator '%s'" op)
-  where op = unpack opText
+  where op = T.unpack opText
+
+transpose :: [[a]] -> [[a]]
+transpose [] = []
+transpose ([] : xs) = transpose xs
+transpose xss = map head xss : transpose (map tail xss)
 
 -- | The function which calculates the solution for part one
 solve1 :: Input -> Solution
-solve1 = error "Part 1 Not implemented"
+solve1 = sum . uncurry (zipWith ($))
 
 -- | The function which calculates the solution for part two
 solve2 :: Input -> Solution
 solve2 = error "Part 2 Not implemented"
 
--- main :: IO ()
--- main = do
---   [part, filepath] <- getArgs
---   input <- parser <$> readFile filepath
---   if read @Int part == 1
---     then do
---       putStr "Day 6 part 1: "
---       print $ solve1 input
---     else do
---       putStr "Day 6 part 2: "
---       print $ solve2 input
+main :: IO ()
+main = do
+  [part, filepath] <- getArgs
+  input <- parser <$> readFile filepath
+  if read @Int part == 1
+    then do
+      putStr "Day 6 part 1: "
+      print $ solve1 input
+    else do
+      putStr "Day 6 part 2: "
+      print $ solve2 input
 
