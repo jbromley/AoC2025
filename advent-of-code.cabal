@@ -47,31 +47,31 @@ common deps
 executable day-01
   import: deps
   hs-source-dirs:
-      solutions
+      src
   main-is: day-01.hs
 
 executable day-02
   import: deps
   hs-source-dirs:
-      solutions
+      src
   main-is: day-02.hs
 
 executable day-03
   import: deps
   hs-source-dirs:
-      solutions
+      src
   main-is: day-03.hs
 
 executable day-04
   import: deps
   hs-source-dirs:
-      solutions
+      src
   main-is: day-04.hs
 
 executable day-05
   import: deps
   hs-source-dirs:
-      solutions
+      src
   main-is: day-05.hs
   other-modules:
     AdventUtils
@@ -80,6 +80,8 @@ executable day-05
 executable day-06
   import: deps
   hs-source-dirs:
-      solutions
+      src
   main-is: day-06.hs
+  other-modules:
+    AdventUtils
 
