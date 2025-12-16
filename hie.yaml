@@ -1,6 +1,6 @@
 cradle:
-  direct:
-    arguments: ["-isrc"]
+  # direct:
+  #   arguments: ["-isrc"]
   cabal:
     - path: "./src/day-01.hs"
       component: "advent-of-code:exe:day-01"
