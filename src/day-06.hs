@@ -1,6 +1,8 @@
 module Main where
 
+import Data.Char (isDigit)
 import Data.List (transpose)
+import Data.List.Split (splitWhen)
 import System.Environment (getArgs)
 import Text.Printf (printf)
 
@@ -24,10 +26,28 @@ parser1 s =
         (opList:rest) -> (map opToFn opList, transpose $ map (map read) rest)
         [] -> error "input does not contain valid lines for parser"
 
+parser2 :: String -> Input
+parser2 s =
+  let input = splitWhen (all (== ' ')) $ transpose $ lines s
+      ops = map opToFn $ map (: []) $ map last $ map head input
+      ns = map (map read) $ processSublists input
+   in (ops, ns)
+
 opToFn :: String -> ([Int] -> Int)
 opToFn "+" = sum
 opToFn "*" = product
 opToFn op = error (printf "illegal op '%s'" op)
+
+-- Function to remove non-digit characters from a string
+removeNonDigits :: String -> String
+removeNonDigits = filter isDigit
+
+-- Function to process each sublist
+processSublists :: [[String]] -> [[String]]
+processSublists = map processFirstElement
+  where
+    processFirstElement (x:xs) = removeNonDigits x : xs
+    processFirstElement [] = [] -- Handle empty sublists, if applicable
 
 -- | The function which calculates the solution for part one
 solve :: Input -> Solution
@@ -37,19 +57,15 @@ solve = sum . uncurry (zipWith ($))
 solve2 :: Input -> Solution
 solve2 = error "Part 2 Not implemented"
 
-finish :: Char -> [String] -> Int
-finish '+' xs = sum (map read xs)
-finish '*' xs = product (map read xs)
-finish op _xs = error (printf "invalid op '%s'" op)
-
 main :: IO ()
 main = do
-  [part, filepath] <- getArgs
-  input <- parser1 <$> readFile filepath
+  [part, filePath] <- getArgs
   if read @Int part == 1
     then do
+      input <- parser1 <$> readFile filePath
       putStr "Day 6 part 1: "
       print $ solve input
     else do
+      input <- parser2 <$> readFile filePath
       putStr "Day 6 part 2: "
-      print $ solve2 input
+      print $ solve input
