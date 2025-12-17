@@ -24,18 +24,38 @@ parser = map V.fromList . lines
 
 -- | The function which calculates the solution for part one
 solve1 :: Input -> Solution
-solve1 = error "Part 1 Not implemented"
+solve1 manifold =
+  case manifold of
+    (initialRow:rest) ->
+      case V.findIndex (== 'S') initialRow of
+        Just b -> propagate rest (S.singleton b) 0
+        Nothing -> error "invalid manifold, can't find initial beam"
+    [] -> error "invalid manifold"
 
 propagate :: [Vector Char] -> IntSet -> Int -> Int
-propagate (nextLine:restMap) beams splits =
-  case nextLine of
-    [] -> splits
-    _ ->
-      let (nextBeams, newSplits) = splitBeams nextLine beams
-       in propagate restMap nextBeams (splits + newSplits)
+propagate manifold beams numSplits =
+  case manifold of
+    [] -> numSplits
+    (nextRow:manifold') ->
+      let (nextBeams, newSplits) = advance nextRow beams
+       in propagate manifold' nextBeams (numSplits + newSplits)
+  where
+    advance :: Vector Char -> IntSet -> (IntSet, Int)
+    advance row currentBeams =
+      let splitters = S.fromList $ V.toList $ V.findIndices (== '^') row
+          splits = S.intersection currentBeams splitters
+          maxX = V.length row - 1
+          nextBeams = S.union (splitBeams splits maxX) (S.difference currentBeams splits)
+       in (nextBeams, S.size splits)
+    splitBeams :: IntSet -> Int -> IntSet
+    splitBeams bs width =
+      S.foldl'
+        (\acc b -> S.union acc (S.fromList [clamp (b - 1) 0 width, clamp (b + 1) 0 width]))
+        S.empty
+        bs
 
-splitBeams :: Vector Char -> IntSet -> (IntSet, Int)
-splitBeams line beams = undefined
+clamp :: Int -> Int -> Int -> Int
+clamp n lo hi = max lo (min hi n)
 
 -- | The function which calculates the solution for part two
 solve2 :: Input -> Solution
