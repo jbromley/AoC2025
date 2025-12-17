@@ -85,3 +85,9 @@ executable day-06
   other-modules:
     AdventUtils
 
+executable day-07
+  import: deps
+  hs-source-dirs:
+      src
+  main-is: day-07.hs
+
