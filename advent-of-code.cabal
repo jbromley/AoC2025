@@ -91,3 +91,9 @@ executable day-07
       src
   main-is: day-07.hs
 
+executable day-08
+  import: deps
+  hs-source-dirs:
+      src
+  main-is: day-08.hs
+
