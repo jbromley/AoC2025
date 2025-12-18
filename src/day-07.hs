@@ -2,7 +2,6 @@ module Main where
 
 import Data.IntSet (IntSet)
 import qualified Data.IntSet as S
-import Data.Vector (Vector)
 import qualified Data.Vector as V
 import System.Environment (getArgs)
 
@@ -12,7 +11,7 @@ import System.Environment (getArgs)
 - Solution should be the type of your solution. Typically is an Int, but It can be other things, like a list of numbers
          or a list of characters
 -}
-type Input = [Vector Char]
+type Input = (IntSet, [IntSet])
 
 type Solution = Int
 
@@ -20,19 +19,22 @@ type Solution = Int
 --   this is intended to use attoparsec for such a transformation. You can use Prelude's
 --   String if it fit better for the problem
 parser :: String -> Input
-parser = map V.fromList . lines
+parser s =
+  case map V.fromList $ lines s of
+    (initialRow:rest) ->
+      let beam =
+            case V.findIndex (== 'S') initialRow of
+              Just b -> S.singleton b
+              Nothing -> error "invalid manifold, can't find initial beam"
+          manifold = map (S.fromList . V.toList . V.findIndices (== '^')) rest
+       in (beam, manifold)
+    [] -> error "invalid input"
 
 -- | The function which calculates the solution for part one
 solve1 :: Input -> Solution
-solve1 manifold =
-  case manifold of
-    (initialRow:rest) ->
-      case V.findIndex (== 'S') initialRow of
-        Just b -> propagate rest (S.singleton b) 0
-        Nothing -> error "invalid manifold, can't find initial beam"
-    [] -> error "invalid manifold"
+solve1 (beam, manifold) = propagate manifold beam 0
 
-propagate :: [Vector Char] -> IntSet -> Int -> Int
+propagate :: [IntSet] -> IntSet -> Int -> Int
 propagate manifold beams numSplits =
   case manifold of
     [] -> numSplits
@@ -40,22 +42,13 @@ propagate manifold beams numSplits =
       let (nextBeams, newSplits) = advance nextRow beams
        in propagate manifold' nextBeams (numSplits + newSplits)
   where
-    advance :: Vector Char -> IntSet -> (IntSet, Int)
-    advance row currentBeams =
-      let splitters = S.fromList $ V.toList $ V.findIndices (== '^') row
-          splits = S.intersection currentBeams splitters
-          maxX = V.length row - 1
-          nextBeams = S.union (splitBeams splits maxX) (S.difference currentBeams splits)
+    advance :: IntSet -> IntSet -> (IntSet, Int)
+    advance splitters currentBeams =
+      let splits = S.intersection currentBeams splitters
+          nextBeams = S.union (splitBeams splits) (S.difference currentBeams splits)
        in (nextBeams, S.size splits)
-    splitBeams :: IntSet -> Int -> IntSet
-    splitBeams bs width =
-      S.foldl'
-        (\acc b -> S.union acc (S.fromList [clamp (b - 1) 0 width, clamp (b + 1) 0 width]))
-        S.empty
-        bs
-
-clamp :: Int -> Int -> Int -> Int
-clamp n lo hi = max lo (min hi n)
+    splitBeams :: IntSet -> IntSet
+    splitBeams = S.foldl' (\acc b -> S.union acc (S.fromList [b - 1, b + 1])) S.empty
 
 -- | The function which calculates the solution for part two
 solve2 :: Input -> Solution
