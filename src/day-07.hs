@@ -1,5 +1,7 @@
 module Main where
 
+import Data.IntMap (IntMap)
+import qualified Data.IntMap as M
 import Data.IntSet (IntSet)
 import qualified Data.IntSet as S
 import qualified Data.Vector as V
@@ -11,7 +13,7 @@ import System.Environment (getArgs)
 - Solution should be the type of your solution. Typically is an Int, but It can be other things, like a list of numbers
          or a list of characters
 -}
-type Input = (IntSet, [IntSet])
+type Input = (Int, [IntSet])
 
 type Solution = Int
 
@@ -24,7 +26,7 @@ parser s =
     (initialRow:rest) ->
       let beam =
             case V.findIndex (== 'S') initialRow of
-              Just b -> S.singleton b
+              Just b -> b
               Nothing -> error "invalid manifold, can't find initial beam"
           manifold = map (S.fromList . V.toList . V.findIndices (== '^')) rest
        in (beam, manifold)
@@ -32,7 +34,7 @@ parser s =
 
 -- | The function which calculates the solution for part one
 solve1 :: Input -> Solution
-solve1 (beam, manifold) = propagate manifold beam 0
+solve1 (beam, manifold) = propagate manifold (S.singleton beam) 0
 
 propagate :: [IntSet] -> IntSet -> Int -> Int
 propagate manifold beams numSplits =
@@ -52,7 +54,21 @@ propagate manifold beams numSplits =
 
 -- | The function which calculates the solution for part two
 solve2 :: Input -> Solution
-solve2 = error "Part 2 Not implemented"
+solve2 (beam, manifold) = propagateTimelines manifold (M.singleton beam 1)
+
+propagateTimelines :: [IntSet] -> IntMap Int -> Int
+propagateTimelines manifold beams =
+  case manifold of
+    [] -> M.foldl' (+) 0 beams
+    (splitters:manifold') -> propagateTimelines manifold' (adjustMapWithSet splitters beams)
+
+adjustMapWithSet :: IntSet -> IntMap Int -> IntMap Int
+adjustMapWithSet intSet = M.foldrWithKey adjustEntry M.empty
+  where
+    adjustEntry k v acc
+      | S.member k intSet =
+        M.insertWith (+) (k - 1) v $ M.insertWith (+) (k + 1) v $ M.insertWith const k 0 acc
+      | otherwise = M.insertWith (+) k v acc
 
 main :: IO ()
 main = do
