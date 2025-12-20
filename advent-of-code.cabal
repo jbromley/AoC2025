@@ -96,4 +96,6 @@ executable day-08
   hs-source-dirs:
       src
   main-is: day-08.hs
+  other-modules:
+    DisjointSetsForest
 
