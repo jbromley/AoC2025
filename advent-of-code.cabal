@@ -28,15 +28,16 @@ common deps
       attoparsec
     , base >=4.7 && <5
     , bytestring
+    , bytestring-trie
     , containers
+    , disjoint-set >=0.2
     , matrix
-    , vector
-    , split
-    , search-algorithms
     , mtl
     , pointedlist
-    , bytestring-trie
+    , search-algorithms
+    , split
     , text
+    , vector
   other-modules:
       Paths_advent_of_code
   ghc-options:
@@ -97,5 +98,5 @@ executable day-08
       src
   main-is: day-08.hs
   other-modules:
-    DisjointSetsForest
+    IntDisjointSets
 
