@@ -1,0 +1,11 @@
+package *
+  ghc-options: -haddock
+
+packages:
+  common/advent.cabal
+  solutions/solutions.cabal
+
+source-repository-package
+  type: git
+  location: https://github.com/jbromley/disjoint-set
+  tag: 8a4205dcc72591909cd3a54173e4fc4a9442cd4f

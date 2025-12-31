@@ -5,15 +5,15 @@
 
 packages:
 - completed:
-    commit: 96da3750d74b164369f4867b043bc89746b026f4
+    commit: 8a4205dcc72591909cd3a54173e4fc4a9442cd4f
     git: https://github.com/jbromley/disjoint-set.git
     name: disjoint-set
     pantry-tree:
-      sha256: 4575b6d129d93db78ac1e139234f6cddc882c9f8feefa94133b3adf3e5ae7537
+      sha256: 368e824fa4508b2b46dd58a6dee353a882974d17b329183b275691bb42bf88ec
       size: 363
-    version: '0.2'
+    version: '0.3'
   original:
-    commit: 96da3750d74b164369f4867b043bc89746b026f4
+    commit: 8a4205dcc72591909cd3a54173e4fc4a9442cd4f
     git: https://github.com/jbromley/disjoint-set.git
 snapshots:
 - completed:

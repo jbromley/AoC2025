@@ -1,0 +1,77 @@
+cabal-version: 3.8
+
+name:           solutions
+version:        0.1.0.0
+description:    Solutions to 2025 Advent of Code in Haskell
+author:         Jay Bromley
+maintainer:     jbromley@gmail.com
+copyright:      2025 Jay Bromley
+license:        ISC
+homepage:       https://github.com/jbromley/AoC2025#readme
+bug-reports:    https://github.com/jbromley/AoC2025/issues
+build-type:     Simple
+Tested-With:    GHC == {9.6.7}
+
+source-repository head
+  type: git
+  location: https://github.com/jbromley/AoC2025
+
+common day
+  hs-source-dirs: src
+  default-extensions:
+      TypeApplications
+      OverloadedStrings
+      LambdaCase
+      TupleSections
+      StrictData
+      ImportQualifiedPost
+  build-depends:
+      advent
+    , base >=4.18 && <5
+    , bytestring
+    , containers >= 0.6.7
+    , text >= 2.0.2
+  default-language: Haskell2010
+  ghc-options: -Wall
+
+-- Do not touch after this line. aoc-hs will edit it
+executable day-01
+  import: day
+  main-is: 01.hs
+
+executable day-02
+  import: day
+  main-is: 02.hs
+
+executable day-03
+  import: day
+  main-is: 03.hs
+
+executable day-04
+  import: day
+  main-is: 04.hs
+  build-depends: matrix
+
+executable day-05
+  import: day
+  main-is: 05.hs
+  build-depends: vector
+
+executable day-06
+  import: day
+  main-is: 06.hs
+  build-depends: split
+
+executable day-07
+  import: day
+  main-is: 07.hs
+  build-depends: vector
+
+executable day-08
+  import: day
+  main-is: 08.hs
+  build-depends: disjoint-set >= 0.3
+
+executable day-09
+  import: day
+  main-is: 09.hs

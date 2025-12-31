@@ -30,7 +30,8 @@ snapshot: lts-22.44
 #   - auto-update
 #   - wai
 packages:
-- .
+- common
+- solutions
 # Dependency packages to be pulled from upstream that are not in the snapshot.
 # These entries can reference officially published versions as well as
 # forks / in-progress versions pinned to a git hash. For example:
@@ -42,7 +43,7 @@ packages:
 #
 extra-deps:
   - git: https://github.com/jbromley/disjoint-set.git
-    commit: 96da3750d74b164369f4867b043bc89746b026f4
+    commit: 8a4205dcc72591909cd3a54173e4fc4a9442cd4f
 
 # Override default flag values for project packages and extra-deps
 # flags: {}

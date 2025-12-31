@@ -2,38 +2,41 @@ cradle:
   # direct:
   #   arguments: ["-isrc"]
   cabal:
-    - path: "./src/day-01.hs"
-      component: "advent-of-code:exe:day-01"
+    - path: "./commo./solutions/src"
+      component: "advent:lib:advent"
 
-    - path: "./src/day-02.hs"
-      component: "advent-of-code:exe:day-02"
+    - path: "./solutions/src/01.hs"
+      component: "solutions:exe:day-01"
 
-    - path: "./src/day-03.hs"
-      component: "advent-of-code:exe:day-03"
+    - path: "./solutions/src/02.hs"
+      component: "solutions:exe:day-02"
 
-    - path: "./src/day-04.hs"
-      component: "advent-of-code:exe:day-04"
+    - path: "./solutions/src/03.hs"
+      component: "solutions:exe:day-03"
 
-    - path: "./src/day-05.hs"
-      component: "advent-of-code:exe:day-05"
+    - path: "./solutions/src/04.hs"
+      component: "solutions:exe:day-04"
 
-    - path: "./src/day-06.hs"
-      component: "advent-of-code:exe:day-06"
+    - path: "./solutions/src/05.hs"
+      component: "solutions:exe:day-05"
 
-    - path: "./src/day-07.hs"
-      component: "advent-of-code:exe:day-07"
+    - path: "./solutions/src/06.hs"
+      component: "solutions:exe:day-06"
 
-    - path: "./src/day-08.hs"
-      component: "advent-of-code:exe:day-08"
+    - path: "./solutions/src/07.hs"
+      component: "solutions:exe:day-07"
 
-    - path: "./src/day-09.hs"
-      component: "advent-of-code:exe:day-09"
+    - path: "./solutions/src/08.hs"
+      component: "solutions:exe:day-08"
 
-    - path: "./src/day-10.hs"
-      component: "advent-of-code:exe:day-10"
+    - path: "./solutions/src/09.hs"
+      component: "solutions:exe:day-09"
 
-    - path: "./src/day-11.hs"
-      component: "advent-of-code:exe:day-11"
+    - path: "./solutions/src/10.hs"
+      component: "solutions:exe:day-10"
 
-    - path: "./src/day-12.hs"
-      component: "advent-of-code:exe:day-12"
+    - path: "./solutions/src/11.hs"
+      component: "solutions:exe:day-11"
+
+    - path: "./solutions/src/12.hs"
+      component: "solutions:exe:day-12"

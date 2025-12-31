@@ -1,7 +1,7 @@
 module Main where
 
 import Data.Char (digitToInt)
--- import Data.List (foldl')
+import Data.List (foldl')
 import System.Environment (getArgs)
 
 {- Types for your input and your solution
@@ -31,11 +31,12 @@ largestDigits :: Int -> [Int] -> [Int]
 largestDigits m xs = take m . reverse $ searchDigits k [] xs
   where
     k = length xs - m
-
     searchDigits :: Int -> [Int] -> [Int] -> [Int]
     searchDigits _ stack [] = stack
-    searchDigits drops stack (d : ds)
-      | drops > 0, s : stack' <- stack, s < d = searchDigits (drops - 1) stack' (d : ds)
+    searchDigits drops stack (d:ds)
+      | drops > 0
+      , s:stack' <- stack
+      , s < d = searchDigits (drops - 1) stack' (d : ds)
       | otherwise = searchDigits drops (d : stack) ds
 
 digitsToInteger :: [Int] -> Int

@@ -1,11 +1,12 @@
 module Main where
 
-import AdventUtils (textRangeToPair, textToInt)
+import Advent.Prelude (textRangeToPair, textToInt)
+import Advent.RangeList
+
 -- import Data.Foldable (foldl')
 -- import Data.List (sortOn)
 import Data.Text (Text, breakOn, pack, splitOn, strip)
 import qualified Data.Vector as V
-import RangeList
 import System.Environment (getArgs)
 
 {- Types for your input and your solution
