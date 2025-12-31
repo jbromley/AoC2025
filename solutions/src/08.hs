@@ -86,4 +86,5 @@ main = do
   putStr "Day 8 part 1: "
   print sol1
   let (pairs, _) = input
+  putStr "Day 8 part 2: "
   print $ solve2 1000 ds pairs
