@@ -49,7 +49,7 @@ solve1 n (pairs, ds) =
    in (prod, ds')
 
 makeCircuits :: IntDisjointSet -> [Pairing] -> IntDisjointSet
-makeCircuits ds pairs = foldl (\acc p -> DS.union (id1 p) (id2 p) acc) ds pairs
+makeCircuits = foldl (\acc p -> DS.union (id1 p) (id2 p) acc)
 
 disjointSetSizes :: IntDisjointSet -> [Int]
 disjointSetSizes ds =
@@ -65,13 +65,13 @@ connectAll :: IntDisjointSet -> [Pairing] -> Solution
 connectAll _ds [] = 0
 connectAll ds (x:xs) =
   let n = DS.disjointSetSize ds
-      box1 = (id1 x)
-      box2 = (id2 x)
+      box1 = id1 x
+      box2 = id2 x
       (sameSet, ds') = DS.equivalent box1 box2 ds
       unionSuccessful = not sameSet
       ds'' = DS.union box1 box2 ds'
    in case (unionSuccessful, n) of
-        (True, 2) -> (xDist x)
+        (True, 2) -> xDist x
         (True, _) -> connectAll ds'' xs
         (False, _) -> connectAll ds'' xs
 
