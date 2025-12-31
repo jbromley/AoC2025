@@ -100,3 +100,9 @@ executable day-08
   other-modules:
     IntDisjointSets
 
+executable day-09
+  import: deps
+  hs-source-dirs:
+      src
+  main-is: day-09.hs
+
